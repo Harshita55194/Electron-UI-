@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Pay - NHA Claim Processor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="section configuration">
+            <h3>Configuration</h3>
+            <div class="config-row">
+                <label>Username:</label>
+                <select id="username">
+                    <option value="akshith1" selected>akshith1</option>
+                </select>
+                <button id="manageUsers">Manage Users</button>
+            </div>
+            <div class="config-row">
+                <label>Browser Type:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="edge" name="browser" checked>
+                        <span>Microsoft Edge</span>
+                    </label>
+                    <label>
+                        <input type="radio" id="chrome" name="browser">
+                        <span>Google Chrome</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section actions">
+            <button id="launchBrowser">Launch Browser</button>
+            <button id="performLogin" disabled>Perform Login</button>
+            <button id="startFirstClaimCycle" disabled>Start First Claim Cycle</button>
+            <button id="stopProcessing" disabled>Stop Auto-Processing Claims</button>
+            <button id="killAutomation" disabled>Kill Automation & Reset</button>
+        </div>
+
+        <div class="split-view">
+            <div class="left-panel">
+                <h3>Claim Statistics & History</h3>
+                <p>Today's Processed Claims: 0</p>
+                <div class="claims-list"></div>
+                <div class="button-group">
+                    <button id="refreshHistory">Refresh History</button>
+                    <button id="viewDetails" disabled>View Selected Claim Details</button>
+                </div>
+            </div>
+            <div class="right-panel">
+                <h3>Logs & Status</h3>
+                <div class="log-area">Application initialized. Select or add a username, then Initialize Browser.
+Refreshing processed claims history...
+Looking for claims processed on: 2025-08-18
+Found 0 total claim directories
+No claims found for today</div>
+            </div>
+        </div>
+
+        <div class="footer">Powered by Health Pay<span class="version">v0.0.0</span></div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>

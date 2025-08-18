@@ -1,0 +1,220 @@
+/* Exact match for PyQt styling */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 2px;
+    background-color: rgb(240, 240, 240);
+    -webkit-font-smoothing: antialiased;
+    font-size: 11px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    background-color: rgb(240, 240, 240);
+    padding: 5px;
+    height: 80%;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Configuration Section */
+.section.configuration {
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(185, 185, 185);
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.config-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.config-row label {
+    min-width: 70px;
+    font-size: 11px;
+    margin-right: 5px;
+}
+
+select {
+    height: 21px;
+    flex-grow: 1;
+    margin-right: 5px;
+    border: 1px solid rgb(172, 172, 172);
+    background-color: white;
+    font-size: 11px;
+}
+
+#manageUsers {
+    height: 21px;
+    padding: 0 8px;
+    background-color: rgb(225, 225, 225);
+    border: 1px solid rgb(172, 172, 172);
+    font-size: 11px;
+    min-width: 120px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.radio-group input[type="radio"] {
+    margin: 0;
+    width: 13px;
+    height: 13px;
+}
+
+/* Actions Section */
+.section.actions {
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(185, 185, 185);
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.section.actions button {
+    height: 24px;
+    font-size: 11px;
+    text-align: center;
+    padding: 0;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+.section.actions button:enabled {
+    background-color: rgb(240, 240, 240);
+    color: rgb(0, 0, 0);
+}
+
+.section.actions button:disabled {
+    background-color: rgb(225, 225, 225);
+    color: rgb(150, 150, 150);
+    border-color: rgb(200, 200, 200);
+}
+
+#killAutomation {
+    grid-column: 1 / -1;
+    background-color: #ffd7d7;
+    border-color: #ffb0b0;
+}
+
+/* Split View Section */
+.split-view {
+    display: grid;
+    grid-template-columns: 30fr 70fr;
+    gap: 8px;
+    flex-grow: 1;
+    min-height: 0;
+    max-height: calc(100% - 180px);
+}
+
+.left-panel, .right-panel {
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(185, 185, 185);
+    padding: 8px;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    font-size: 11px;
+    font-weight: normal;
+    margin: 0 0 6px 0;
+    color: rgb(0, 0, 0);
+}
+
+.claims-list {
+    flex: 1;
+    background-color: white;
+    border: 1px solid rgb(172, 172, 172);
+    margin: 5px 0;
+    min-height: 0;
+}
+
+.log-area {
+    flex: 1;
+    background-color: white;
+    border: 1px solid rgb(172, 172, 172);
+    padding: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 10px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    min-height: 0;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.button-group button {
+    height: 24px;
+    font-size: 11px;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+.button-group button:enabled {
+    background-color: rgb(240, 240, 240);
+    color: rgb(0, 0, 0);
+}
+
+.button-group button:disabled {
+    background-color: rgb(225, 225, 225);
+    color: rgb(150, 150, 150);
+    border-color: rgb(200, 200, 200);
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    font-family: 'Segoe UI', sans-serif;
+    color: rgb(160, 160, 160);
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer span {
+    display: inline;
+}
+
+.footer .version {
+    margin-left: 4px;
+    font-size: inherit;
+}
+
+/* Common Button Styles */
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d4d4d4 !important;
+}
+
+#killAutomation:hover {
+    background-color: #ffc0c0 !important;
+}
