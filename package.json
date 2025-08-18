@@ -5,11 +5,27 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder build --win",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^27.0.0"
+    "electron": "^27.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.healthpay.nha",
+    "productName": "Health Pay - NHA Claim Processor",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "**/*",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj,ts}"
+    ],
+    "win": {
+      "target": ["portable"]
+    }
   }
 }
