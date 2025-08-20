@@ -124,6 +124,7 @@ I have refered **electron docs** to understand the flow of app,and **electron-bu
    - Find `Health Pay - NHA Claim Processor.exe`
    - Double-click to run the application
    - For portable use, you can copy the entire `win-unpacked` folder to any location
+   - Or using command prompt navigate to dist-elctron folder,then run "Health Pay - NHA Claim Processor.exe"
 
 
 ## Conclusion
