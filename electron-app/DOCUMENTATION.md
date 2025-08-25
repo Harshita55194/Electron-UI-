@@ -96,7 +96,7 @@ This document outlines the development process of converting the PyQt-based NHA 
 
 ### 5. Development Resources Used
 
-I have refered **electron docs** to understand the flow of app,and **electron-builder** to export .exe file and used git copilot for converting pyqt to electron
+I have refered **electron docs** to understand the flow of app,and **electron-builder** to export .exe file and used git copilot for converting pyqt to electron.
 
 ### 6. Testing
 - Tested UI components
