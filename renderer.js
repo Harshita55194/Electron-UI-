@@ -11,23 +11,19 @@ const viewDetailsBtn = document.getElementById('viewDetails');
 const claimsList = document.querySelector('.claims-list');
 const logArea = document.querySelector('.log-area');
 
-// Load saved usernames from JSON file
-let usernames = [];
+// Load last used username if any
 try {
-    // In production, this would load from a file
-    usernames = ['user1', 'user2']; // Placeholder data
+    const fs = window.require('fs');
+    const path = window.require('path');
+    const usernamesPath = path.join(__dirname, 'usernames.json');
+    if (fs.existsSync(usernamesPath)) {
+        const data = JSON.parse(fs.readFileSync(usernamesPath));
+        if (data.selectedUsername) {
+            usernameSelect.value = data.selectedUsername;
+        }
+    }
 } catch (error) {
-    logMessage('Error loading usernames: ' + error.message);
-}
-
-// Populate username select
-function populateUsernames() {
-    usernameSelect.innerHTML = '';
-    usernames.forEach(username => {
-        const option = document.createElement('option');
-        option.value = option.textContent = username;
-        usernameSelect.appendChild(option);
-    });
+    logMessage('Error loading last username: ' + error.message);
 }
 
 // Log message function
@@ -39,14 +35,72 @@ function logMessage(message) {
 
 // Button click handlers
 launchBrowserBtn.addEventListener('click', () => {
-    const selectedBrowser = document.querySelector('input[name="browser"]:checked').value;
-    logMessage(`Launching ${selectedBrowser} browser...`);
-    performLoginBtn.disabled = false;
+    const selectedBrowser = document.querySelector('input[name="browser"]:checked').id;
+    const username = usernameSelect.value;
+    
+    // Save the selected username and browser to usernames.json
+    const fs = window.require('fs');
+    const path = window.require('path');
+    const usernamesPath = path.join(__dirname, 'usernames.json');
+    
+    try {
+        // Save username and browser choice
+        fs.writeFileSync(usernamesPath, JSON.stringify({
+            selectedUsername: username,
+            selectedBrowser: selectedBrowser
+        }, null, 2));
+        
+        logMessage(`Launching browser...`);
+        
+        // Run the Python script
+        const { spawn } = window.require('child_process');
+        const pythonPath = 'python';  // or 'python3' depending on your system
+        const pythonScript = path.join(__dirname, '..', 'automation', 'browser_automation.py');
+        
+        const process = spawn(pythonPath, [pythonScript, 'launch']);
+        
+        process.stdout.on('data', (data) => {
+            logMessage(data.toString().trim());
+        });
+        
+        process.stderr.on('data', (data) => {
+            logMessage(`Error: ${data.toString().trim()}`);
+        });
+        
+        process.on('error', (error) => {
+            logMessage(`Failed to start process: ${error.message}`);
+            return;
+        });
+        
+        performLoginBtn.disabled = false;
+    } catch (error) {
+        logMessage(`Error: ${error.message}`);
+    }
 });
 
 performLoginBtn.addEventListener('click', () => {
     const username = usernameSelect.value;
-    logMessage(`Performing login for user: ${username}`);
+    logMessage(`Performing login for user: ${username}...`);
+    
+    // Run the Python script for login
+    const { spawn } = window.require('child_process');
+    const path = window.require('path');
+    const pythonScript = path.join(__dirname, '..', 'automation', 'browser_automation.py');
+    
+    const pythonProcess = spawn('python', [pythonScript, 'login', username]);
+    
+    pythonProcess.stdout.on('data', (data) => {
+        logMessage(data.toString().trim());
+    });
+    
+    pythonProcess.stderr.on('data', (data) => {
+        logMessage(`Error: ${data.toString().trim()}`);
+    });
+    
+    pythonProcess.on('error', (error) => {
+        logMessage(`Failed to start Python process: ${error.message}`);
+    });
+    
     startClaimBtn.disabled = false;
 });
 
