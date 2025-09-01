@@ -1,3 +1,5 @@
+const { ipcRenderer } = window.require('electron');
+
 // DOM Elements
 const usernameSelect = document.getElementById('username');
 const manageUsersBtn = document.getElementById('manageUsers');
@@ -8,6 +10,7 @@ const stopClaimsBtn = document.getElementById('stopProcessing');
 const killAutomationBtn = document.getElementById('killAutomation');
 const refreshHistoryBtn = document.getElementById('refreshHistory');
 const viewDetailsBtn = document.getElementById('viewDetails');
+const scrapeBooksBtn = document.getElementById('scrapeBooks'); // matches the HTML ID
 const claimsList = document.querySelector('.claims-list');
 const logArea = document.querySelector('.log-area');
 
@@ -34,6 +37,24 @@ function logMessage(message) {
 }
 
 // Button click handlers
+scrapeBooksBtn.addEventListener('click', () => {
+    console.log('Scrape button clicked');
+    logMessage('Starting book scraping...');
+    try {
+        console.log('Sending scrape-books event');
+        ipcRenderer.send('scrape-books');
+        console.log('Event sent successfully');
+    } catch (error) {
+        console.error('Error sending event:', error);
+    }
+});
+
+// Listen for scraping status updates
+window.ipcRenderer.on('scrape-status', (event, data) => {
+    console.log('Received scrape status:', data);
+    logMessage(data.message);
+});
+
 launchBrowserBtn.addEventListener('click', () => {
     const selectedBrowser = document.querySelector('input[name="browser"]:checked').id;
     const username = usernameSelect.value;

@@ -53,3 +53,35 @@ ipcMain.on('launch-browser', (event, data) => {
     });
   });
 });
+
+// Handle scrape books request
+ipcMain.on('scrape-books', (event) => {
+  console.log('Received scrape-books event');
+  const pythonScript = path.join(__dirname, '..', 'automation', 'bs_scraper.py');
+  console.log('Running script:', pythonScript);
+  
+  try {
+    const pythonProcess = spawn('python', [pythonScript]);
+    console.log('Python process started');
+
+    pythonProcess.stdout.on('data', (data) => {
+      console.log('Python output:', data.toString());
+      event.reply('scrape-status', { type: 'info', message: data.toString() });
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      console.error('Python error:', data.toString());
+      event.reply('scrape-status', { type: 'error', message: data.toString() });
+    });
+
+    pythonProcess.on('close', (code) => {
+      console.log('Python process exited with code:', code);
+      event.reply('scrape-status', { 
+        type: code === 0 ? 'success' : 'error',
+        message: `Process exited with code ${code}`
+      });
+    });
+  } catch (error) {
+    console.error('Error spawning Python process:', error);
+  }
+});
